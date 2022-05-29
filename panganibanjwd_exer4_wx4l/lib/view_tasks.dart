@@ -26,6 +26,18 @@ Future<http.Response> deleteTask(int id) {
   );
 }
 
+Future<http.Response> updateTask(int id) {
+  return http.put(
+    Uri.parse('https://jsonplaceholder.typicode.com/$id'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, int>{
+      'id': id
+    }),
+  );
+}
+
 class TaskList extends StatefulWidget {
 
   const TaskList({ Key? key }) : super(key: key);
