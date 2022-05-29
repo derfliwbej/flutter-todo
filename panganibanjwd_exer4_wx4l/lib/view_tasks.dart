@@ -1,6 +1,21 @@
 import 'package:flutter/material.dart';
-import 'dbhandler.dart';
 import 'TaskModel.dart';
+
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<List<Task>> fetchTasks() async {
+  final res = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/todos'));
+  final tasks;
+
+  if(res.statusCode == 200) {
+    tasks = jsonDecode(res.body).cast<Map<String, dynamic>>();
+    return tasks.map<Task>((task) => Task.fromMap(task)).toList();
+  } else {
+    throw Exception('Failed to load task');
+  }
+}
 
 class TaskList extends StatefulWidget {
 
