@@ -41,7 +41,42 @@ class _TaskListState extends State<TaskList> {
             appBar: AppBar(
                 title: const Text('To Do List')
             ),
-            body: const Text('This contains the To Do List')
+            body: FutureBuilder(
+                future: futureTasks,
+                builder: (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
+                  if (snapshot.hasData) {
+                    return ListView.builder(
+                        itemCount: snapshot.data?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return ListTile(
+                              key: ValueKey<int>(snapshot.data![index].id!),
+                              title: Text(snapshot.data![index].title.toString()),
+                              trailing: Wrap(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.create_outlined),
+                                    onPressed: () async {
+                                      setState(() {});
+                                    }
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete_outlined),
+                                    onPressed: () async {
+                                      setState(() {});
+                                    }
+                                  )
+                                ]
+                              )
+                          );
+                        }
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                }
+            )
         )
     );
   }
