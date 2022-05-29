@@ -32,8 +32,8 @@ Future<http.Response> updateTask(int id, String title) {
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, int>{
-      'id': id
+    body: jsonEncode(<String, String>{
+      'title': title
     }),
   );
 }
