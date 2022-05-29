@@ -26,8 +26,15 @@ class TaskList extends StatefulWidget {
 }
 
 class _TaskListState extends State<TaskList> {
-  @override
+  late Future<List<Task>> futureTasks;
 
+  @override
+  void initState() {
+    super.initState();
+    futureTasks = fetchTasks();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
         child: Scaffold(
