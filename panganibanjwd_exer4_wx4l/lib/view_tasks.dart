@@ -17,7 +17,7 @@ Future<List<Task>> fetchTasks() async {
   }
 }
 
-Future<http.Response> deleteTask(String id) {
+Future<http.Response> deleteTask(int id) {
   return http.delete(
     Uri.parse('https://jsonplaceholder.typicode.com/todos/$id'),
     headers: <String, String>{
@@ -71,7 +71,12 @@ class _TaskListState extends State<TaskList> {
                                   IconButton(
                                     icon: Icon(Icons.delete_outlined),
                                     onPressed: () async {
-                                      setState(() {});
+                                      http.Response res;
+                                      res = await deleteTask(snapshot.data![index].id!);
+
+                                      if(res.statusCode == 200) {
+                                        print('Successfully sent a DELETE request to /todos with id ${snapshot.data![index].id!}');
+                                      }
                                     }
                                   )
                                 ]
