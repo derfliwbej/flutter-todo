@@ -1,25 +1,25 @@
 class Task {
   final int? id;
   final String title;
-  final String details;
+  final bool completed;
 
   const Task({
     this.id,
     required this.title,
-    required this.details,
+    required this.completed,
   });
 
   Task.fromMap(Map<String, dynamic> res)
     : id = res["id"],
       title = res["title"],
-      details = res["details"];
+      completed = res["completed"];
 
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
       'title': title,
-      'details' : details,
+      'completed' : completed,
     };
   }
 }
