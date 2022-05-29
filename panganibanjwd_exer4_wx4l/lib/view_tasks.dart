@@ -17,6 +17,15 @@ Future<List<Task>> fetchTasks() async {
   }
 }
 
+Future<http.Response> deleteTask(String id) {
+  return http.delete(
+    Uri.parse('https://jsonplaceholder.typicode.com/todos/$id'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+}
+
 class TaskList extends StatefulWidget {
 
   const TaskList({ Key? key }) : super(key: key);
