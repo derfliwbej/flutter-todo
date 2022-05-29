@@ -41,7 +41,14 @@ class _AddTaskState extends State<AddTask> {
   }
 
   void saveTask() async {
+    http.Response res;
     if (_titleController.text.length != 0) {
+      res = await createTask(_titleController.text);
+
+      if(res.statusCode == 201) {
+        print('Successfully sent a POST request to /todos with title ${_titleController.text}');
+      }
+
       _titleController.clear();
     }
   }
