@@ -26,7 +26,7 @@ Future<http.Response> deleteTask(int id) {
   );
 }
 
-Future<http.Response> updateTask(int id) {
+Future<http.Response> updateTask(int id, String title) {
   return http.put(
     Uri.parse('https://jsonplaceholder.typicode.com/$id'),
     headers: <String, String>{
