@@ -28,7 +28,7 @@ Future<http.Response> deleteTask(int id) {
 
 Future<http.Response> updateTask(int id, String title) {
   return http.put(
-    Uri.parse('https://jsonplaceholder.typicode.com/$id'),
+    Uri.parse('https://jsonplaceholder.typicode.com/todos/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -84,7 +84,16 @@ class _TaskListState extends State<TaskList> {
             ),
             ElevatedButton(
               child: Text('SAVE'),
-              onPressed: () {
+              onPressed: () async {
+                http.Response res;
+                res = await updateTask(id, _textFieldController.text);
+
+                if(res.statusCode == 200) {
+                  print('Successfully sent a PUT request to /todos with id ${id} and new title ${_textFieldController.text}');
+                } else {
+                  print('Status code is ${res.statusCode}');
+                }
+
                 _textFieldController.clear();
                 Navigator.pop(context);
               }
