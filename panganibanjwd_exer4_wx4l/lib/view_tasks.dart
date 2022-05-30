@@ -48,11 +48,51 @@ class TaskList extends StatefulWidget {
 
 class _TaskListState extends State<TaskList> {
   late Future<List<Task>> futureTasks;
+  TextEditingController _textFieldController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     futureTasks = fetchTasks();
+  }
+
+  Future<void> _displayTitleInputDialog(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('New title'),
+          content: TextField(
+            controller: _textFieldController,
+            decoration: InputDecoration(
+              labelText: 'Title',
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.blue
+                )
+              ),
+              enabledBorder: OutlineInputBorder()
+            )
+          ),
+          actions: <Widget>[
+            ElevatedButton(
+              child: Text('CANCEL'),
+              onPressed: () {
+                _textFieldController.clear();
+                Navigator.pop(context);
+              }
+            ),
+            ElevatedButton(
+              child: Text('SAVE'),
+              onPressed: () {
+                _textFieldController.clear();
+                Navigator.pop(context);
+              }
+            )
+          ]
+        );
+      }
+    );
   }
 
   @override
@@ -77,7 +117,7 @@ class _TaskListState extends State<TaskList> {
                                   IconButton(
                                     icon: Icon(Icons.create_outlined),
                                     onPressed: () async {
-                                      setState(() {});
+                                      _displayTitleInputDialog(context);
                                     }
                                   ),
                                   IconButton(
