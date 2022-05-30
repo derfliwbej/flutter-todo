@@ -119,6 +119,12 @@ class _TaskListState extends State<TaskList> {
                         itemCount: snapshot.data?.length,
                         itemBuilder: (BuildContext context, int index) {
                           return ListTile(
+                              leading: IconButton(
+                                icon: snapshot.data![index].completed ?
+                                      Icon(Icons.check_box_outline_blank) :
+                                      Icon(Icons.check_box),
+                                onPressed: () {}
+                              ),
                               key: ValueKey<int>(snapshot.data![index].id!),
                               title: Text(snapshot.data![index].title.toString()),
                               trailing: Wrap(
