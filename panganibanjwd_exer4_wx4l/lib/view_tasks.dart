@@ -56,7 +56,7 @@ class _TaskListState extends State<TaskList> {
     futureTasks = fetchTasks();
   }
 
-  Future<void> _displayTitleInputDialog(BuildContext context) async {
+  Future<void> _displayTitleInputDialog(BuildContext context, int id) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -117,7 +117,7 @@ class _TaskListState extends State<TaskList> {
                                   IconButton(
                                     icon: Icon(Icons.create_outlined),
                                     onPressed: () async {
-                                      _displayTitleInputDialog(context);
+                                      _displayTitleInputDialog(context, snapshot.data![index].id!);
                                     }
                                   ),
                                   IconButton(
